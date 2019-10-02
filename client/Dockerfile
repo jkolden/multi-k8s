@@ -10,7 +10,7 @@ RUN npm install @material-ui/icons
 RUN npm install recharts
 
 
-CMD ["npm", "run", "build"]
+RUN npm run build
 
 FROM nginx
 EXPOSE 3000
