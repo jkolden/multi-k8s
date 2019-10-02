@@ -17,8 +17,6 @@ after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
   # take those images and push them to docker hub
-  - docker push jkolden/multi-client
   - docker push jkolden/multi-nginx
   - docker push jkolden/multi-server
-
-  #
+  - docker push jkolden/multi-client
