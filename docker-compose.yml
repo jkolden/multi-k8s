@@ -15,7 +15,7 @@ services:
       - /app/node_modules
       - ./hr_node_app:/app
     environment:
-      - TNS_ADMIN=/app/Wallet_DB201909100942
+      - TNS_ADMIN=/usr/src/app/Wallet_DB201909100942
       - NODE_ORACLEDB_PASSWORD=Jaka!00000928
   client:
     build:
