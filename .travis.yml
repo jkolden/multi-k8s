@@ -21,16 +21,16 @@ after_success:
   - docker push jkolden/multi-server
   - docker push jkolden/multi-client
 
-  deploy:
-    provider: elasticbeanstalk
-    region: us-west-2
-    app: multi-docker
-    env: MultiDocker-env
-    bucket_name: elasticbeanstalk-us-west-2-278001651727
-    bucket_path: docker-multi
-    on:
-      branch: master
-    access_key_id:
-      secure: $AWS_ACCESS_KEY
-    secret_access_key:
-      secure: $AWS_SECRET_KEY
+deploy:
+  provider: elasticbeanstalk
+  region: us-west-2
+  app: multi-docker
+  env: MultiDocker-env
+  bucket_name: elasticbeanstalk-us-west-2-278001651727
+  bucket_path: docker-multi
+  on:
+    branch: master
+  access_key_id:
+    secure: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
