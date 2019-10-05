@@ -13,7 +13,17 @@
             "image": "jkolden/multi-server",
             "hostname": "api",
             "essential": false,
-            "memory": 128
+            "memory": 128,
+            "environment": [
+                {
+                  "name": "TNS_ADMIN",
+                  "value": "/app/Wallet_DB201909100942"
+                },
+                {
+                    "name": "NODE_ORACLEDB_PASSWORD",
+                    "value": "Jaka!00000928"
+                  }
+              ]
         },
         {
             "name": "nginx",
