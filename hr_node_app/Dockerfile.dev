@@ -1,7 +1,7 @@
 FROM oraclelinux:7-slim
 
 # Create app directory
-WORKDIR /app
+WORKDIR '/app'
 
 # Copy the .js files from your host machine into the new app directory
 COPY . .
