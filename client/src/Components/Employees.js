@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
         return (
 
             <div>
-                <h3>Employees List</h3>
+                <h3>Employees</h3>
                 {loading && <div>Loading...</div>}
                 <ul>
                 {employees.map((employee) => !loading && <li key={employee.id}>{employee.name}</li>)}
