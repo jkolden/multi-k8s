@@ -17,7 +17,7 @@
             "environment": [
                 {
                   "name": "TNS_ADMIN",
-                  "value": "app/Wallet_DB201909100942"
+                  "value": "/app/Wallet_DB201909100942"
                 },
                 {
                     "name": "NODE_ORACLEDB_PASSWORD",
