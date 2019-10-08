@@ -26,7 +26,6 @@ async function logon() {
       }
       //api call was successful and sessionId is returned
       let sessionId = result["sessionID"]["$value"];
-      console.log(sessionId);
       return sessionId;
     });
   });
