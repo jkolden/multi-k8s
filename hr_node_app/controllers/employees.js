@@ -57,7 +57,7 @@ async function put(req, res, next) {
   try {
     let employee = getEmployeeFromRec(req);
 
-    employee.employee_id = parseInt(req.params.id, 10);
+    employee.empno = parseInt(req.params.id, 10);
 
     employee = await employees.update(employee);
 
