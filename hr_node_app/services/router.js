@@ -8,8 +8,8 @@ router
   .get(employees.get)
   .post(employees.post)
   .put(employees.put)
-  .delete(employees.delete)
-  .route("/otbi")
-  .post(otbi.post);
+  .delete(employees.delete);
+
+router.route("/otbi").post(otbi.post);
 
 module.exports = router;
