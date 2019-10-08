@@ -12,8 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "log4js": "^5.2.0",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.2",
-    "oracledb": "^4.0.1"
+    "oracledb": "^4.0.1",
+    "soap": "^0.29.0",
+    "xml2js": "^0.4.22"
   }
 }
