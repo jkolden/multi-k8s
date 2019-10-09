@@ -8,7 +8,7 @@ async function post(req, res, next) {
       sessionId = data;
     });
 
-    res.status(200).json({ sessionId: sessionId });
+    res.status(200).json(sessionId);
   } catch (err) {
     next(err);
   }
