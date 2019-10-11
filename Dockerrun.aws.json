@@ -1,44 +1,42 @@
 {
-    "AWSEBDockerrunVersion": 2,
-    "containerDefinitions": [
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "jkolden/multi-client",
+      "hostname": "client",
+      "essential": false,
+      "memory": 128
+    },
+    {
+      "name": "server",
+      "image": "jkolden/multi-server",
+      "hostname": "api",
+      "essential": false,
+      "memory": 128,
+      "environment": [
         {
-            "name": "client",
-            "image": "jkolden/multi-client",
-            "hostname": "client",
-            "essential": false,
-            "memory": 128
+          "name": "TNS_ADMIN",
+          "value": "/app/Wallet_DB201909100942"
         },
         {
-            "name": "server",
-            "image": "jkolden/multi-server",
-            "hostname": "api",
-            "essential": false,
-            "memory": 128,
-            "environment": [
-                {
-                  "name": "TNS_ADMIN",
-                  "value": "/app/Wallet_DB201909100942"
-                },
-                {
-                    "name": "NODE_ORACLEDB_PASSWORD",
-                    "value": "Jaka!00000928"
-                  }
-              ]
-        },
-        {
-            "name": "nginx",
-            "image": "jkolden/multi-nginx",
-            "essential": true,
-            "memory": 128,
-            "portMappings": [
-                {
-                    "hostPort": 80,
-                    "containerPort": 80
-                }
-            ],
-            "links": ["client", "server"]
-
-
+          "name": "NODE_ORACLEDB_PASSWORD",
+          "value": "Jaka!00000928"
         }
-    ]
+      ]
+    },
+    {
+      "name": "nginx",
+      "image": "jkolden/multi-nginx",
+      "essential": true,
+      "memory": 128,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client", "server"]
+    }
+  ]
 }

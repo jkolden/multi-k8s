@@ -7,6 +7,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import PersonAdd from "@material-ui/icons/PersonAdd";
+import PublicIcon from '@material-ui/icons/Public';
 import { NavLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -51,6 +52,11 @@ const navItems = [
     path: "/entry",
     text: "Entry Form",
     icon: <PersonAdd />
+  },
+  {
+    path: "/otbi",
+    text: "OTBI",
+    icon: <PublicIcon />
   }
 ];
 

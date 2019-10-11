@@ -12,4 +12,6 @@ router
 
 router.route("/otbi").post(otbi.post);
 
+router.route("/otbi-report").post(otbi.runReport);
+
 module.exports = router;

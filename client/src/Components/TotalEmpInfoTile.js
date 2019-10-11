@@ -12,23 +12,17 @@ const useStyles = makeStyles({
   }
 });
 
-export default function InfoTile(props) {
+export default function TotalEmpInfoTile(props) {
   const classes = useStyles();
-  const reducer = (accumulator, currentValue) => accumulator + currentValue;
-  let empSalaries = props.employees.map(employee => +employee.sal);
-  let total = empSalaries.reduce(reducer, 0);
-  let date = Date(Date.now());
 
-  const formatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD"
-  });
+  const formatter = new Intl.NumberFormat();
+  let date = Date(Date.now());
 
   return (
     <React.Fragment>
       <Title>{props.title}</Title>
       <Typography component="p" variant="h4">
-        {formatter.format(total)}
+        {formatter.format(props.employees.length)}
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
         {date.toString()}

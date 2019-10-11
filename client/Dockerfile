@@ -2,13 +2,12 @@ FROM node:alpine as builder
 
 WORKDIR /app
 
-#COPY ./package.json ./
-COPY . .
-#RUN npm install
+COPY ./package.json ./
+RUN npm install
 RUN npm install @material-ui/core
 RUN npm install @material-ui/icons
 RUN npm install recharts
-
+COPY . .
 
 RUN npm run build
 

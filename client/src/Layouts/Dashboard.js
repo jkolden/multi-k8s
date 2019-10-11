@@ -14,7 +14,8 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MainListItems from "./listitems";
 import { Route } from "react-router-dom";
-import Analytics from "../Components/Analytics";
+import Analytics from "../Pages/Analytics";
+import Otbi from '../Pages/Otbi';
 
 const drawerWidth = 240;
 
@@ -168,6 +169,12 @@ export default function Dashboard(props) {
             employees={employees}
             loading={loading}
           />
+        )}
+      />
+      <Route
+        path="/otbi"
+        render={() => (
+          <Otbi />
         )}
       />
     </div>

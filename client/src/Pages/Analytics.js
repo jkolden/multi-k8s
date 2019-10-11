@@ -1,15 +1,14 @@
 import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Link from "@material-ui/core/Link";
-import Employees from "./Employees";
-import SalariesBarChart from "./SalariesBarChart";
-import InfoTile from "./InfoTile";
+import Employees from "../Components/Employees";
+import SalariesBarChart from "../Components/SalariesBarChart";
+import InfoTile from "../Components/InfoTile";
 
 function Copyright() {
   return (
@@ -128,15 +127,17 @@ export default function Analytics(props) {
           {/* Total Salary Badge */}
           <Grid item xs={12} md={4} lg={3}>
             <Paper className={fixedHeightPaper}>
-              <InfoTile employees={props.employees} />
+              <InfoTile
+                employees={props.employees}
+                title={"Total Monthly Salaries"}
+              />
             </Paper>
           </Grid>
           {/* Emp Table */}
 
           <Grid item xs={12}>
             <Paper className={classes.paper}>
-                <Employees employees={props.employees} loading={props.loading}/>
-              
+              <Employees employees={props.employees} loading={props.loading} />
             </Paper>
           </Grid>
         </Grid>
