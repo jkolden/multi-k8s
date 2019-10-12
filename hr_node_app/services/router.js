@@ -11,7 +11,7 @@ router
   .delete(employees.delete);
 
 router.route("/otbi").post(otbi.post);
-
+router.route("/otbi-logoff").post(otbi.logoff);
 router.route("/otbi-report").post(otbi.runReport);
 
 module.exports = router;

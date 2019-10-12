@@ -32,8 +32,41 @@ function logon(loginDetails) {
   });
 }
 
-function runReport(sessionId) {
-  let instance = "adc4-zhox";
+function logoff(loginDetails) {
+  let { instance, sessionId } = loginDetails;
+  let url =
+    "https://" +
+    instance +
+    "-fa-ext.oracledemos.com/analytics-ws/saw.dll/wsdl/v6";
+  //call the SOAP API to return an OTBI logon:
+  let soap = require("soap");
+  let args = {
+    sessionID: sessionId
+  };
+
+  return new Promise(function(resolve, reject) {
+    soap.createClient(url, function(err, client) {
+      if (err) {
+        //wsdl couldn't be contacted due to instance unavailable etc.
+        console.log(err);
+        return;
+      }
+      client.logoff(args, function(err, result) {
+        if (err) {
+          //api call failed due to wrong password etc.
+          //TODO: resolve here also to gracefullt handle error
+          console.log(err);
+          return;
+        }
+        //api call was successful and sessionId is returned
+        resolve("logged off");
+      });
+    });
+  });
+}
+
+function runReport(loginDetails) {
+  let { instance, sessionId } = loginDetails;
   //call the SOAP API to return an OTBI logon:
   let soap = require("soap");
   //required to strip the namespaces from the returned XML so that it can be parsed like JSON:
@@ -85,5 +118,6 @@ function runReport(sessionId) {
 
 module.exports = {
   logon: logon,
+  logoff: logoff,
   runReport: runReport
 };

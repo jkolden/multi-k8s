@@ -12,11 +12,23 @@ async function post(req, res, next) {
   }
 }
 
+async function logoff(req, res, next) {
+  try {
+    let loginDetails = req.body.loginDetails;
+
+    otbi.logoff(loginDetails).then(data => {
+      res.status(200).json(data);
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function runReport(req, res, next) {
   try {
-    let sessionId = req.body.sessionId;
+    let loginDetails = req.body.loginDetails;
 
-    otbi.runReport(sessionId).then(data => {
+    otbi.runReport(loginDetails).then(data => {
       res.status(200).json(data);
     });
   } catch (err) {
@@ -26,5 +38,6 @@ async function runReport(req, res, next) {
 
 module.exports = {
   post: post,
+  logoff: logoff,
   runReport: runReport
 };

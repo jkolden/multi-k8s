@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import VectorMapView from "../Components/VectorMapView";
 import TotalEmpInfoTile from "../Components/TotalEmpInfoTile";
+import Divider from "@material-ui/core/Divider";
 
 const drawerWidth = 240;
 
@@ -21,7 +22,16 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     width: "200px"
   },
+  form: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
   textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 250
+  },
+  sessionId: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1)
   },
@@ -114,7 +124,8 @@ export default function Otbi() {
   const [loginDetails, setLoginDetails] = useState({
     instance: "",
     password: "",
-    user: ""
+    user: "",
+    sessionId: ""
   });
   const classes = useStyles();
 
@@ -127,8 +138,8 @@ export default function Otbi() {
     });
   };
 
-  async function handleClick() {
-    await fetch("/api/otbi", {
+  function handleLogon() {
+    fetch("/api/otbi", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -139,7 +150,34 @@ export default function Otbi() {
       body: JSON.stringify({ loginDetails: loginDetails })
     })
       .then(resp => resp.json())
-      .then(data => setSessionId(data.sessionId));
+      .then(data =>
+        setLoginDetails({
+          ...loginDetails,
+          sessionId: data.sessionId
+        })
+      );
+  }
+
+  function handleLogoff() {
+    fetch("/api/otbi-logoff", {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ loginDetails: loginDetails })
+    })
+      .then(resp => resp.json())
+      .then(data =>
+        setLoginDetails({
+          ...loginDetails,
+          sessionId: data
+        })
+      )
+      .then(setOtbiData([]))
+      .then(setMapData({}));
   }
 
   function getOtbi() {
@@ -151,7 +189,7 @@ export default function Otbi() {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ sessionId: sessionId })
+      body: JSON.stringify({ loginDetails: loginDetails })
     })
       .then(resp => resp.json())
       .then(data => setOtbiData(data));
@@ -186,79 +224,81 @@ export default function Otbi() {
           {/* OTBI Session Id */}
           <Grid item xs={12} md={12} lg={12}>
             <Paper className={classes.paper}>
-              <TextField
-                id="session-id"
-                label="Session Id"
-                type="text"
-                className={classes.textField}
-                placeholder="OTBI Session Id"
-                value={sessionId || ""}
-                margin="normal"
-                variant="outlined"
-                fullwidth
-              />
-
-              <TextField
-                onChange={handleChange("instance")}
-                className={classes.textField}
-                name="instance"
-                value={loginDetails.instance || ""}
-                type="text"
-                label="Instance"
-                margin="normal"
-                variant="outlined"
-                placeholder="adc4-zhot"
-                fullWidth
-              />
-              <TextField
-                onChange={handleChange("password")}
-                className={classes.textField}
-                name="password"
-                value={loginDetails.password || ""}
-                type="text"
-                label="Password"
-                margin="normal"
-                variant="outlined"
-                fullWidth
-              />
-              <TextField
-                onChange={handleChange("user")}
-                className={classes.textField}
-                name="user"
-                value={loginDetails.user || ""}
-                type="text"
-                label="User Name"
-                margin="normal"
-                variant="outlined"
-                fullWidth
-              />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={12} lg={12}>
-            <Paper className={classes.buttonContainer}>
-              <Button
-                onClick={handleClick}
-                variant="contained"
-                className={classes.button}
-                fullWidth={false}
-                color="primary"
-              >
-                Get OTBI Session Id
-              </Button>
-              <Button
-                onClick={getOtbi}
-                variant="contained"
-                className={classes.button}
-              >
-                Run OTBI Report API
-              </Button>
-              <Button
-                onClick={groupByCountry}
-                variant="contained"
-                className={classes.button}
-              >
-                Update Map
-              </Button>
+              <form className={classes.form}>
+                <TextField
+                  onChange={handleChange("instance")}
+                  className={classes.textField}
+                  name="instance"
+                  value={loginDetails.instance || ""}
+                  type="text"
+                  label="Instance"
+                  margin="normal"
+                  variant="outlined"
+                  placeholder="adc4-zhot"
+                />
+                <TextField
+                  onChange={handleChange("password")}
+                  className={classes.textField}
+                  name="password"
+                  value={loginDetails.password || ""}
+                  type="text"
+                  label="Password"
+                  margin="normal"
+                  variant="outlined"
+                />
+                <TextField
+                  onChange={handleChange("user")}
+                  className={classes.textField}
+                  name="user"
+                  value={loginDetails.user || ""}
+                  type="text"
+                  label="User Name"
+                  margin="normal"
+                  variant="outlined"
+                />
+                <Divider />
+                <TextField
+                  id="session-id"
+                  label="Session Id"
+                  type="text"
+                  className={classes.sessionId}
+                  placeholder="OTBI Session Id"
+                  value={loginDetails.sessionId || ""}
+                  margin="normal"
+                  variant="outlined"
+                  fullwidth
+                />
+                <Button
+                  onClick={handleLogon}
+                  variant="contained"
+                  className={classes.button}
+                  fullWidth={false}
+                  color="primary"
+                >
+                  Get OTBI Session Id
+                </Button>
+                <Button
+                  onClick={getOtbi}
+                  variant="contained"
+                  className={classes.button}
+                >
+                  Run OTBI Report API
+                </Button>
+                <Button
+                  onClick={groupByCountry}
+                  variant="contained"
+                  className={classes.button}
+                >
+                  Update Map
+                </Button>
+                <Button
+                  onClick={handleLogoff}
+                  variant="contained"
+                  className={classes.button}
+                >
+                  Logoff
+                </Button>
+              </form>
             </Paper>
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
