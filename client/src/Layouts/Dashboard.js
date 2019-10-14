@@ -15,7 +15,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import MainListItems from "./listitems";
 import { Route } from "react-router-dom";
 import Analytics from "../Pages/Analytics";
-import Otbi from '../Pages/Otbi';
+import Otbi from "../Pages/Otbi";
 
 const drawerWidth = 240;
 
@@ -35,6 +35,7 @@ const useStyles = makeStyles(theme => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: "#35312e",
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -164,19 +165,9 @@ export default function Dashboard(props) {
       </Drawer>
       <Route
         path="/dashboard"
-        render={() => (
-          <Analytics
-            employees={employees}
-            loading={loading}
-          />
-        )}
+        render={() => <Analytics employees={employees} loading={loading} />}
       />
-      <Route
-        path="/otbi"
-        render={() => (
-          <Otbi />
-        )}
-      />
+      <Route path="/otbi" render={() => <Otbi />} />
     </div>
   );
 }

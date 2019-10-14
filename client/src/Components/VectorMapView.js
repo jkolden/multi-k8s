@@ -1,5 +1,4 @@
 /*!
-
 =========================================================
 * Black Dashboard PRO React - v1.0.0
 =========================================================
@@ -15,40 +14,49 @@
 
 */
 import React from "react";
+import Title from "./Title";
+import Paper from "@material-ui/core/Paper";
 // react plugin for creating vector maps
 import { VectorMap } from "react-jvectormap";
 
 class VectorMapView extends React.Component {
-  render() {
+  render(props) {
+    //const mapData = { US: 500, GB: 60, CN: 30 }; for testing only
+    const { mapData } = this.props;
     return (
       <div className="map map-big" id="worldMap">
-        <VectorMap
-          map={"world_mill"}
-          backgroundColor="transparent"
-          zoomOnScroll={false}
-          containerStyle={{
-            width: "100%",
-            height: "420px"
-          }}
-          regionStyle={{
-            initial: {
-              fill: "#e4e4e4",
-              "fill-opacity": 0.9,
-              stroke: "none",
-              "stroke-width": 0,
-              "stroke-opacity": 0
-            }
-          }}
-          series={{
-            regions: [
-              {
-                values: this.props.mapData,
-                scale: ["#AAAAAA", "#444444"],
-                normalizeFunction: "polynomial"
+        <Paper>
+          <VectorMap
+            map={"world_mill"}
+            backgroundColor="transparent"
+            zoomOnScroll={false}
+            containerStyle={{
+              width: "100%",
+              height: "420px"
+            }}
+            onRegionTipShow={function(e, el, code) {
+              el.html(el.html() + " (Employees: " + mapData[code] + ")");
+            }}
+            regionStyle={{
+              initial: {
+                fill: "#e4e4e4",
+                "fill-opacity": 0.9,
+                stroke: "none",
+                "stroke-width": 0,
+                "stroke-opacity": 0
               }
-            ]
-          }}
-        />
+            }}
+            series={{
+              regions: [
+                {
+                  values: mapData,
+                  scale: ["#59b2c4", "#17515c"],
+                  normalizeFunction: "polynomial"
+                }
+              ]
+            }}
+          />
+        </Paper>
       </div>
     );
   }

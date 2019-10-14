@@ -29,7 +29,7 @@ export default function TotalEmpInfoTile(props) {
       </Typography>
       <div>
         <Link color="primary" href="javascript:;">
-          View details
+          details
         </Link>
       </div>
     </React.Fragment>

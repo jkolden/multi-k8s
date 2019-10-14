@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import Card from "@material-ui/core/Card";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -11,6 +12,7 @@ import TextField from "@material-ui/core/TextField";
 import VectorMapView from "../Components/VectorMapView";
 import TotalEmpInfoTile from "../Components/TotalEmpInfoTile";
 import Divider from "@material-ui/core/Divider";
+import EmployeesTable from "../Components/EmployeesTable";
 
 const drawerWidth = 240;
 
@@ -22,6 +24,11 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     width: "200px"
   },
+  buttonHot: {
+    margin: theme.spacing(1),
+    width: "200px",
+    backgroundColor: "#254e3e"
+  },
   form: {
     display: "flex",
     flexWrap: "wrap"
@@ -31,71 +38,12 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
     width: 250
   },
-  sessionId: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1)
-  },
-  toolbar: {
-    paddingRight: 24 // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: "0 8px",
-    ...theme.mixins.toolbar
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  menuButton: {
-    marginRight: 36
-  },
-  menuButtonHidden: {
-    display: "none"
-  },
+
   title: {
     flexGrow: 1
   },
-  drawerPaper: {
-    position: "relative",
-    whiteSpace: "nowrap",
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  drawerPaperClose: {
-    overflowX: "hidden",
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9)
-    }
-  },
   appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: "100vh",
-    overflow: "auto",
-    float: "right"
-  },
+
   container: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4)
@@ -121,6 +69,7 @@ export default function Otbi() {
   const [sessionId, setSessionId] = useState();
   const [otbiData, setOtbiData] = useState([]);
   const [mapData, setMapData] = useState();
+  const [tableData, setTableData] = useState([]);
   const [loginDetails, setLoginDetails] = useState({
     instance: "",
     password: "",
@@ -177,7 +126,8 @@ export default function Otbi() {
         })
       )
       .then(setOtbiData([]))
-      .then(setMapData({}));
+      .then(setMapData({}))
+      .then(setTableData([]));
   }
 
   function getOtbi() {
@@ -192,13 +142,16 @@ export default function Otbi() {
       body: JSON.stringify({ loginDetails: loginDetails })
     })
       .then(resp => resp.json())
-      .then(data => setOtbiData(data));
+      .then(function(data) {
+        setOtbiData(data);
+        groupByCountry(data);
+      });
   }
 
-  function groupByCountry() {
+  function groupByCountry(data) {
     let obj = {};
-    for (let i = 0; i < otbiData.length; i++) {
-      let country = otbiData[i].Column5;
+    for (let i = 0; i < data.length; i++) {
+      let country = data[i].Column5;
       if (obj[country]) {
         obj[country] = obj[country] + 1;
       } else {
@@ -206,6 +159,21 @@ export default function Otbi() {
       }
     }
     setMapData(obj);
+    populateTable(obj);
+  }
+
+  function populateTable(data) {
+    let result = Object.keys(data)
+      .map(function(key) {
+        return { [key]: data[key] };
+      })
+      .sort(function(a, b) {
+        return Object.values(b) - Object.values(a);
+      })
+      .filter(obj => Object.keys(obj) != typeof undefined)
+      .slice(0, 5);
+
+    setTableData(result);
   }
 
   return (
@@ -213,14 +181,14 @@ export default function Otbi() {
       <div className={classes.appBarSpacer} />
       <Container maxWidth="lg" className={classes.container}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={12} lg={12}>
-            <Paper className={classes.paper}>
-              <TotalEmpInfoTile
-                employees={otbiData}
-                title={"Total Employees"}
-              />
-            </Paper>
+          <Grid item xs={12} md={6} lg={6}>
+            <EmployeesTable tableData={tableData} />
           </Grid>
+
+          <Grid item xs={12} md={6} lg={6}>
+            <VectorMapView mapData={mapData} />
+          </Grid>
+
           {/* OTBI Session Id */}
           <Grid item xs={12} md={12} lg={12}>
             <Paper className={classes.paper}>
@@ -256,22 +224,21 @@ export default function Otbi() {
                   margin="normal"
                   variant="outlined"
                 />
-                <Divider />
-                <TextField
-                  id="session-id"
-                  label="Session Id"
-                  type="text"
-                  className={classes.sessionId}
-                  placeholder="OTBI Session Id"
-                  value={loginDetails.sessionId || ""}
-                  margin="normal"
-                  variant="outlined"
-                  fullwidth
-                />
+                <Grid item xs={12} md={12} lg={12}>
+                  <TextField
+                    id="session-id"
+                    label="Session Id"
+                    placeholder="OTBI Session Id"
+                    value={loginDetails.sessionId || ""}
+                    margin="normal"
+                    variant="outlined"
+                    fullWidth
+                  />
+                </Grid>
                 <Button
                   onClick={handleLogon}
                   variant="contained"
-                  className={classes.button}
+                  className={classes.buttonHot}
                   fullWidth={false}
                   color="primary"
                 >
@@ -285,13 +252,6 @@ export default function Otbi() {
                   Run OTBI Report API
                 </Button>
                 <Button
-                  onClick={groupByCountry}
-                  variant="contained"
-                  className={classes.button}
-                >
-                  Update Map
-                </Button>
-                <Button
                   onClick={handleLogoff}
                   variant="contained"
                   className={classes.button}
@@ -299,11 +259,6 @@ export default function Otbi() {
                   Logoff
                 </Button>
               </form>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={12} lg={12}>
-            <Paper>
-              <VectorMapView mapData={mapData} />
             </Paper>
           </Grid>
         </Grid>
