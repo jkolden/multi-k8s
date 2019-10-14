@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -16,6 +16,7 @@ import MainListItems from "./listitems";
 import { Route } from "react-router-dom";
 import Analytics from "../Pages/Analytics";
 import Otbi from "../Pages/Otbi";
+import CredentialsDialogue from "../Components/CredentialsDialogue";
 
 const drawerWidth = 240;
 
@@ -103,6 +104,12 @@ export default function Dashboard(props) {
   const { employees, loading } = props;
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [loginDetails, setLoginDetails] = useState({
+    instance: "adc4-zhox",
+    password: "NYY47963",
+    user: "betty.anderson",
+    sessionId: ""
+  });
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -138,8 +145,12 @@ export default function Dashboard(props) {
             noWrap
             className={classes.title}
           >
-            Dashboard
+            Integration Portal {loginDetails.instance}
           </Typography>
+          <CredentialsDialogue
+            loginDetails={loginDetails}
+            setLoginDetails={setLoginDetails}
+          />
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
@@ -167,7 +178,12 @@ export default function Dashboard(props) {
         path="/dashboard"
         render={() => <Analytics employees={employees} loading={loading} />}
       />
-      <Route path="/otbi" render={() => <Otbi />} />
+      <Route
+        path="/otbi"
+        render={() => (
+          <Otbi loginDetails={loginDetails} setLoginDetails={setLoginDetails} />
+        )}
+      />
     </div>
   );
 }

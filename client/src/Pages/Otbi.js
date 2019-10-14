@@ -65,17 +65,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Otbi() {
+export default function Otbi(props) {
   const [sessionId, setSessionId] = useState();
   const [otbiData, setOtbiData] = useState([]);
   const [mapData, setMapData] = useState();
   const [tableData, setTableData] = useState([]);
-  const [loginDetails, setLoginDetails] = useState({
-    instance: "",
-    password: "",
-    user: "",
-    sessionId: ""
-  });
+  const { loginDetails, setLoginDetails } = props;
   const classes = useStyles();
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -193,37 +188,6 @@ export default function Otbi() {
           <Grid item xs={12} md={12} lg={12}>
             <Paper className={classes.paper}>
               <form className={classes.form}>
-                <TextField
-                  onChange={handleChange("instance")}
-                  className={classes.textField}
-                  name="instance"
-                  value={loginDetails.instance || ""}
-                  type="text"
-                  label="Instance"
-                  margin="normal"
-                  variant="outlined"
-                  placeholder="adc4-zhot"
-                />
-                <TextField
-                  onChange={handleChange("password")}
-                  className={classes.textField}
-                  name="password"
-                  value={loginDetails.password || ""}
-                  type="text"
-                  label="Password"
-                  margin="normal"
-                  variant="outlined"
-                />
-                <TextField
-                  onChange={handleChange("user")}
-                  className={classes.textField}
-                  name="user"
-                  value={loginDetails.user || ""}
-                  type="text"
-                  label="User Name"
-                  margin="normal"
-                  variant="outlined"
-                />
                 <Grid item xs={12} md={12} lg={12}>
                   <TextField
                     id="session-id"
