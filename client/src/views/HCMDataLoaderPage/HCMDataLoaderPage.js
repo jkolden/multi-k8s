@@ -140,7 +140,9 @@ export default function HCMDataLoaderPage(props) {
               <Button color="primary" onClick={handleUpload}>
                 Load to HCM Cloud
               </Button>
-              <Button onClick={handleUpload}>Run Import and Load Data</Button>
+              <Button onClick={handleImportAndLoad}>
+                Run Import and Load Data
+              </Button>
             </GridItem>
           </GridContainer>
         </div>
