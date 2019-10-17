@@ -25,7 +25,7 @@ const useStyles = makeStyles(aboutUsStyle);
 
 export default function HCMDataLoaderPage(props) {
   const [file, setFile] = useState();
-  const [essId, seEssId] = useState();
+  const [essId, setEssId] = useState();
   const [contentId, setContentId] = useState();
 
   const classes = useStyles();
