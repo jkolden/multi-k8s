@@ -14,13 +14,11 @@ function loadFile(request) {
     // read binary data
     let bitmap = fs.readFileSync(path);
     let zip = new require("node-zip")();
-    zip.file("testfile", bitmap);
+    zip.file("hcmfile.dat", bitmap);
     return zip.generate({ base64: true, compression: "DEFLATE" });
-    console.log(data);
-    //return new Buffer(data).toString("base64");
   }
 
-  let mydata = base64_encode(request.file.path);
+  let apiContent = base64_encode(request.file.path);
 
   let url =
     "https://" +
@@ -29,7 +27,7 @@ function loadFile(request) {
 
   let args = {
     document: {
-      Content: mydata,
+      Content: apiContent,
       FileName: `${name}.zip`,
       ContentType: "zip",
       DocumentTitle: name,
