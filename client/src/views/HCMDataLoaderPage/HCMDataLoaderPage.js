@@ -37,7 +37,7 @@ export default function HCMDataLoaderPage(props) {
       datfile: file[0]
     };
 
-    fetch("/api/data-file", {
+    fetch("/api/file-upload", {
       headers: {
         "Content-type": "application/json"
       },
