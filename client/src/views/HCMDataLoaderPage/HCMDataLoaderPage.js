@@ -25,9 +25,35 @@ const useStyles = makeStyles(aboutUsStyle);
 
 export default function HCMDataLoaderPage(props) {
   const [file, setFile] = useState();
+  const [essId, seEssId] = useState();
+  const [contentId, setContentId] = useState();
 
   const classes = useStyles();
   const { instance, password, user } = props.loginDetails;
+
+  const handleChange = () => event => {
+    setContentId(event.target.value);
+  };
+
+  function handleImportAndLoad() {
+    fetch("/api/importAndLoad", {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        instance,
+        user,
+        password,
+        contentId
+      })
+    })
+      .then(resp => resp.json())
+      .then(data => setEssId(data.essId));
+  }
 
   const handleUpload = () => {
     const payload = {
@@ -37,17 +63,21 @@ export default function HCMDataLoaderPage(props) {
       datfile: file[0]
     };
 
-    fetch("/api/file-upload", {
-      headers: {
-        "Content-type": "application/json"
-      },
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
-      mimeType: "multipart/form-data",
-      body: JSON.stringify(payload)
-    })
+    fetch(
+      "http://multidocker-env.rjfhnjaucw.us-west-2.elasticbeanstalk.com/api/file-upload",
+      {
+        headers: {
+          "Content-type": "application/json"
+        },
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, *cors, same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "same-origin", // include, *same-origin, omit
+        mimeType: "multipart/form-data",
+        crossDomain: true,
+        body: JSON.stringify(payload)
+      }
+    )
       .then(function(response) {
         console.log(response);
       })
@@ -81,15 +111,36 @@ export default function HCMDataLoaderPage(props) {
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <GridContainer>
-            <h4>.dat File Upload</h4>
-            <GridItem md={12} sm={12}></GridItem>
-            <div className={classes.divContainer}>
+            <GridItem md={6} sm={6}>
+              <h3>.dat File Upload</h3>
               <DropZone handleFile={handleFile} />
-            </div>
+            </GridItem>
+            <GridItem md={6} sm={6}>
+              <TextField
+                id="Document Id"
+                onChange={handleChange()}
+                label="UCM Document Id"
+                placeholder="UCM Document Id"
+                value={contentId || ""}
+                margin="normal"
+                variant="outlined"
+                fullWidth
+              />
+              <TextField
+                id="ess Id"
+                label="Ess Id"
+                placeholder="Ess Id"
+                value={essId || ""}
+                margin="normal"
+                variant="outlined"
+                fullWidth
+              />
+            </GridItem>
             <GridItem md={12} sm={12}>
               <Button color="primary" onClick={handleUpload}>
                 Load to HCM Cloud
               </Button>
+              <Button onClick={handleUpload}>Run Import and Load Data</Button>
             </GridItem>
           </GridContainer>
         </div>

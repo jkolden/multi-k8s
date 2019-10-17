@@ -18,5 +18,6 @@ router.route("/otbi").post(otbi.post);
 router.route("/otbi-logoff").post(otbi.logoff);
 router.route("/otbi-report").post(otbi.runReport);
 router.route("/file-upload").post(upload.single("datfile"), ucm.loadFile);
+router.route("/importAndLoad").post(ucm.importAndLoad);
 
 module.exports = router;

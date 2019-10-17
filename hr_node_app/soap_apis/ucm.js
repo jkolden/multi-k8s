@@ -49,7 +49,7 @@ function loadFile(request) {
           if (err) {
             reject(err);
           } else {
-            resolve(result);
+            resolve({ ...result, contentId: name.toUpperCase() });
           }
         });
       }
@@ -57,6 +57,40 @@ function loadFile(request) {
   });
 }
 
+function importAndLoad(request) {
+  let { instance, password, user, contentId } = request.body;
+
+  //call the SOAP API to return an OTBI logon:
+  var soap = require("strong-soap").soap;
+  let url =
+    "https://" +
+    instance +
+    "-fa-ext.oracledemos.com/hcmCommonDataLoader/HCMDataLoader?WSDL";
+  let args = {
+    ContentId: contentId,
+    Parameters: null
+  };
+
+  return new Promise(function(resolve, reject) {
+    soap.createClient(url, function(err, client) {
+      if (err) {
+        //wsdl couldn't be contacted due to instance unavailable etc.
+        reject(err);
+      }
+      client.setSecurity(new soap.BasicAuthSecurity(user, password));
+      client.importAndLoadData(args, function(err, result) {
+        if (err) {
+          //api call failed due to wrong password etc.
+          reject(err);
+        }
+        //api call was successful and ess job id result is returned
+        resolve({ essId: result["result"] });
+      });
+    });
+  });
+}
+
 module.exports = {
-  loadFile: loadFile
+  loadFile,
+  importAndLoad
 };
