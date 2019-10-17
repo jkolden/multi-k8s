@@ -29,7 +29,8 @@ export default function HCMDataLoaderPage(props) {
   const [contentId, setContentId] = useState();
 
   const classes = useStyles();
-  const { instance, password, user } = props.loginDetails;
+  const { loginDetails } = props;
+  const { instance, password, user } = loginDetails;
 
   const handleChange = () => event => {
     setContentId(event.target.value);
@@ -56,24 +57,23 @@ export default function HCMDataLoaderPage(props) {
   }
 
   const handleUpload = () => {
-    const payload = {
-      instance,
-      password,
-      user,
-      datfile: file[0]
-    };
+    const data = new FormData();
+
+    data.append("instance", instance);
+    data.append("password", password);
+    data.append("user", user);
+    data.append("datfile", file[0]);
 
     fetch("/api/file-upload", {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      method: "POST",
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
       credentials: "same-origin", // include, *same-origin, omit
       headers: {
         "Content-Type": "application/json"
       },
-
       mimeType: "multipart/form-data",
-      body: JSON.stringify(payload)
+      body: data
     })
       .then(function(response) {
         console.log(response);
@@ -109,7 +109,7 @@ export default function HCMDataLoaderPage(props) {
         <div className={classes.container}>
           <GridContainer>
             <GridItem md={6} sm={6}>
-              <h3>.dat File Upload</h3>
+              <h3>File Upload</h3>
               <DropZone handleFile={handleFile} />
             </GridItem>
             <GridItem md={6} sm={6}>
