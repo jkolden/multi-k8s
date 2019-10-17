@@ -39,13 +39,19 @@ export default function HCMDataLoaderPage(props) {
 
     fetch("/api/file-upload", {
       headers: {
-        "Content-type": "application/x-www-form-urlencoded"
+        "Content-type": "application/json"
       },
-      method: "POST",
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      mimeType: "multipart/form-data",
       body: JSON.stringify(payload)
-    }).then(function(response) {
-      console.log(response);
-    });
+    })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(err => console.log(err));
   };
 
   const handleFile = file => {
