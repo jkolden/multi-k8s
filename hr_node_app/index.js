@@ -9,7 +9,7 @@ process.env.UV_THREADPOOL_SIZE =
 
 async function startup() {
   console.log("Starting application");
-
+  /*
   try {
     console.log("Initializing database module");
 
@@ -19,6 +19,7 @@ async function startup() {
 
     process.exit(1); // Non-zero failure code
   }
+  */
 
   try {
     console.log("Initializing web server module");

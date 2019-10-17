@@ -19,7 +19,7 @@ RUN yum update -y && \
     yum clean all && \
     node --version && \
     npm --version && \
-    npm install oracledb && \
+    npm install && \
     echo Installed
 
 CMD ["npm", "run", "start"]
