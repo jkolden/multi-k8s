@@ -39,7 +39,7 @@ export default function HCMDataLoaderPage(props) {
 
     fetch("/api/file-upload", {
       headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/x-www-form-urlencoded"
       },
       method: "POST",
       body: JSON.stringify(payload)
