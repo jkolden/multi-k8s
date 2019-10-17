@@ -1,17 +1,19 @@
 /*eslint-disable*/
 import React, { useState } from "react";
+import { Route } from "react-router";
 // nodejs library that concatenates classes
-import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
+//content pages
+import ProductPage from "views/ProductPage/ProductPage";
+import HCMDataLoaderPage from "views/HCMDataLoaderPage/HCMDataLoaderPage";
+
 // core components
 import Header from "components/Header/Header.js";
-import Parallax from "components/Parallax/Parallax.js";
 // sections for this page
 import Cards from "./Cards";
 import HeaderLinks from "components/Header/HeaderLinks.js";
-import ProductPage from "views/ProductPage/ProductPage";
 import APIInfoArea from "./APIInfoArea";
 import DashboardFooter from "./DashboardFooter";
 
@@ -26,6 +28,7 @@ export default function Dashboard() {
     user: "",
     sessionId: ""
   });
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
@@ -47,9 +50,23 @@ export default function Dashboard() {
         }}
       />
 
-      <ProductPage
-        loginDetails={loginDetails}
-        setLoginDetails={setLoginDetails}
+      <Route
+        path="/dashboard"
+        render={() => (
+          <ProductPage
+            loginDetails={loginDetails}
+            setLoginDetails={setLoginDetails}
+          />
+        )}
+      />
+      <Route
+        path="/data-loader"
+        render={() => (
+          <HCMDataLoaderPage
+            loginDetails={loginDetails}
+            setLoginDetails={setLoginDetails}
+          />
+        )}
       />
 
       <APIInfoArea />
