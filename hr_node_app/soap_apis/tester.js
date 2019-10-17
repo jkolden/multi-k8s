@@ -1,5 +1,6 @@
-const otbi = require("./otbi.js");
+const ucm = require("./ucm.js");
 
-otbi
-  .runReport("ubj4n9t5fluuhsc3vtuqehn7gr07hgfe2oftcjsqsinfgbhq")
-  .then(data => console.log(data));
+ucm
+  .loadFile()
+  .then(result => console.log(result))
+  .catch(err => console.log(err));

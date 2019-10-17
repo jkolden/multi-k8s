@@ -1,7 +1,11 @@
 const express = require("express");
 const router = new express.Router();
+const multer = require("multer");
+let upload = multer({ dest: "uploads/" });
+
 const employees = require("../controllers/employees.js");
 const otbi = require("../controllers/otbi.js");
+const ucm = require("../controllers/ucm.js");
 
 router
   .route("/employees/:id?")
@@ -13,5 +17,6 @@ router
 router.route("/otbi").post(otbi.post);
 router.route("/otbi-logoff").post(otbi.logoff);
 router.route("/otbi-report").post(otbi.runReport);
+router.route("/file-upload").post(upload.single("datfile"), ucm.loadFile);
 
 module.exports = router;
