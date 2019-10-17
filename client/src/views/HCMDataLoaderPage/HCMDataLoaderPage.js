@@ -70,9 +70,8 @@ export default function HCMDataLoaderPage(props) {
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
       credentials: "same-origin", // include, *same-origin, omit
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "amultipart/form-data"
       },
-      mimeType: "multipart/form-data",
       body: data
     })
       .then(function(response) {
