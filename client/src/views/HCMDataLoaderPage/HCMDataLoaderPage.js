@@ -63,21 +63,18 @@ export default function HCMDataLoaderPage(props) {
       datfile: file[0]
     };
 
-    fetch(
-      "http://multidocker-env.rjfhnjaucw.us-west-2.elasticbeanstalk.com/api/file-upload",
-      {
-        headers: {
-          "Content-type": "application/json"
-        },
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        mode: "cors", // no-cors, *cors, same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
-        mimeType: "multipart/form-data",
-        crossDomain: true,
-        body: JSON.stringify(payload)
-      }
-    )
+    fetch("/api/file-upload", {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      mimeType: "multipart/form-data",
+      body: JSON.stringify(payload)
+    })
       .then(function(response) {
         console.log(response);
       })
