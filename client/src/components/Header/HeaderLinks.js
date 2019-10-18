@@ -109,7 +109,7 @@ export default function HeaderLinks(props) {
               <Layers className={classes.dropdownIcons} />
               HCM Data Loader
             </Link>,
-            <Link to="/dashboard" className={classes.dropdownLink}>
+            <Link to="/atom" className={classes.dropdownLink}>
               <LineStyle className={classes.dropdownIcons} /> Atom Feed
             </Link>
           ]}

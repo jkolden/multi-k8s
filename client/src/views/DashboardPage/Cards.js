@@ -1,21 +1,21 @@
 import React from "react";
 // @material-ui/icons
-import LockIcon from "@material-ui/icons/Lock";
-import WifiIcon from "@material-ui/icons/Wifi";
+//import LockIcon from "@material-ui/icons/Lock";
+//import WifiIcon from "@material-ui/icons/Wifi";
 import Favorite from "@material-ui/icons/Favorite";
 import { makeStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 
 // core components
-import Header from "components/Header/Header.js";
-import HeaderLinks from "components/Header/HeaderLinks.js";
-import Parallax from "components/Parallax/Parallax.js";
+//import Header from "components/Header/Header.js";
+//import HeaderLinks from "components/Header/HeaderLinks.js";
+//import Parallax from "components/Parallax/Parallax.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import Footer from "components/Footer/Footer.js";
+//import Footer from "components/Footer/Footer.js";
 import Button from "components/CustomButtons/Button.js";
-import Accordion from "components/Accordion/Accordion.js";
-import InfoArea from "components/InfoArea/InfoArea.js";
+//import Accordion from "components/Accordion/Accordion.js";
+//import InfoArea from "components/InfoArea/InfoArea.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";

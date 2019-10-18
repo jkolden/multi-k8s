@@ -1,6 +1,9 @@
-const ucm = require("./ucm.js");
+const atom = require("./atom.js");
 
-ucm
-  .loadFile()
-  .then(result => console.log(result))
-  .catch(err => console.log(err));
+let feed = atom
+  .getFeed({
+    instance: "adc4-zhox",
+    password: "NYY47963",
+    user: "betty.anderson"
+  })
+  .then(feed => console.log(feed));

@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 //content pages
 import ProductPage from "views/ProductPage/ProductPage";
 import HCMDataLoaderPage from "views/HCMDataLoaderPage/HCMDataLoaderPage";
+import AtomFeedPage from "views/AtomFeedPage/AtomFeedPage";
 
 // core components
 import Header from "components/Header/Header.js";
@@ -62,6 +63,15 @@ export default function Dashboard() {
         path="/data-loader"
         render={() => (
           <HCMDataLoaderPage
+            loginDetails={loginDetails}
+            setLoginDetails={setLoginDetails}
+          />
+        )}
+      />
+      <Route
+        path="/atom"
+        render={() => (
+          <AtomFeedPage
             loginDetails={loginDetails}
             setLoginDetails={setLoginDetails}
           />
