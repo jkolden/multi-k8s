@@ -71,9 +71,8 @@ export default function HCMDataLoaderPage(props) {
       credentials: "same-origin", // include, *same-origin, omit
       body: data
     })
-      .then(function(response) {
-        console.log(response);
-      })
+      .then(resp => resp.json())
+      .then(data => setContentId(data.contentId))
       .catch(err => console.log(err));
   };
 
