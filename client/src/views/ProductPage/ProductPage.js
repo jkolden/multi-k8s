@@ -63,6 +63,7 @@ export default function ProductPage(props) {
   }
 
   function getOtbi() {
+    loginDetails.sessionId = sessionId;
     fetch("/api/otbi-report", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -71,7 +72,7 @@ export default function ProductPage(props) {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ ...loginDetails, sessionId })
+      body: JSON.stringify({ loginDetails: loginDetails })
     })
       .then(resp => resp.json())
       .then(function(data) {
