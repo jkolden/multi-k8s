@@ -30,6 +30,7 @@ export default function ProductPage(props) {
   const classes = useStyles();
 
   function handleLogoff() {
+    loginDetails.sessionId = sessionId;
     fetch("/api/otbi-logoff", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -38,7 +39,7 @@ export default function ProductPage(props) {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ ...loginDetails, sessionId })
+      body: JSON.stringify({ loginDetails: loginDetails })
     })
       .then(resp => resp.json())
       .then(data => setSessionId(data))
