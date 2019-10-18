@@ -25,8 +25,7 @@ export default function Dashboard() {
   const [loginDetails, setLoginDetails] = useState({
     instance: "",
     password: "",
-    user: "",
-    sessionId: ""
+    user: ""
   });
 
   React.useEffect(() => {

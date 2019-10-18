@@ -24,8 +24,9 @@ const useStyles = makeStyles(aboutUsStyle);
 export default function ProductPage(props) {
   const [otbiData, setOtbiData] = useState([]);
   const [mapData, setMapData] = useState();
+  const [sessionId, setSessionId] = useState();
   const [tableData, setTableData] = useState([]);
-  const { loginDetails, setLoginDetails, handleLogon } = props;
+  const { loginDetails, setLoginDetails } = props;
   const classes = useStyles();
 
   function handleLogoff() {
@@ -37,15 +38,10 @@ export default function ProductPage(props) {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ loginDetails: loginDetails })
+      body: JSON.stringify({ ...loginDetails, sessionId })
     })
       .then(resp => resp.json())
-      .then(data =>
-        setLoginDetails({
-          ...loginDetails,
-          sessionId: data
-        })
-      )
+      .then(data => setSessionId(data))
       .then(setOtbiData([]))
       .then(setMapData({}))
       .then(setTableData([]));
@@ -63,12 +59,7 @@ export default function ProductPage(props) {
       body: JSON.stringify({ loginDetails: loginDetails })
     })
       .then(resp => resp.json())
-      .then(data =>
-        setLoginDetails({
-          ...loginDetails,
-          sessionId: data.sessionId
-        })
-      );
+      .then(data => setSessionId(data.sessionId));
   }
 
   function getOtbi() {
@@ -80,7 +71,7 @@ export default function ProductPage(props) {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ loginDetails: loginDetails })
+      body: JSON.stringify({ ...loginDetails, sessionId })
     })
       .then(resp => resp.json())
       .then(function(data) {
@@ -136,7 +127,7 @@ export default function ProductPage(props) {
               )}
             >
               <h1 className={classes.title}>
-                Easily Access Data from Transactional Business Intelligence
+                Seamlessly Access Data from Transactional Business Intelligence
               </h1>
               <h4>This is the Oracle Anayltics API</h4>
             </GridItem>
@@ -156,6 +147,34 @@ export default function ProductPage(props) {
               <VectorMapView mapData={mapData} />
             </GridItem>
             <GridItem md={6} sm={6}>
+              <TextField
+                id="session-id"
+                label="OTBI Session Id"
+                placeholder="OTBI Session Id"
+                value={sessionId || ""}
+                margin="normal"
+                variant="outlined"
+                fullWidth
+              />
+              <Button onClick={doLogon} fullWidth={false} color="primary">
+                Get OTBI Session Id
+              </Button>
+              <Button
+                onClick={getOtbi}
+                variant="contained"
+                className={classes.button}
+              >
+                Run OTBI Report API
+              </Button>
+              <Button
+                onClick={handleLogoff}
+                variant="contained"
+                className={classes.button}
+              >
+                Logoff
+              </Button>
+            </GridItem>
+            <GridItem md={12} sm={12}>
               <Accordion
                 active={0}
                 activeColor="dark"
@@ -164,10 +183,13 @@ export default function ProductPage(props) {
                     title: "API Description",
                     content: (
                       <p>
-                        Provides external operations for ERP integration
-                        scenarios to execute end-to-end inbound and outbound
-                        data flows. It also tracks the status of inbound and
-                        outbound data processes.
+                        The Oracle Business Intelligence Session-Based Web
+                        Services are an application programming interface (API)
+                        that implements SOAP. These web services are designed
+                        for programmatic use, where you use one web service for
+                        invoking many different business intelligence objects.
+                        These web services also provide functionality on a wide
+                        range of Presentation Services operations.
                       </p>
                     )
                   },
@@ -203,34 +225,6 @@ export default function ProductPage(props) {
                   }
                 ]}
               />
-            </GridItem>
-            <GridItem md={6} sm={6}>
-              <TextField
-                id="session-id"
-                label="OTBI Session Id"
-                placeholder="OTBI Session Id"
-                value={loginDetails.sessionId || ""}
-                margin="normal"
-                variant="outlined"
-                fullWidth
-              />
-              <Button onClick={doLogon} fullWidth={false} color="primary">
-                Get OTBI Session Id
-              </Button>
-              <Button
-                onClick={getOtbi}
-                variant="contained"
-                className={classes.button}
-              >
-                Run OTBI Report API
-              </Button>
-              <Button
-                onClick={handleLogoff}
-                variant="contained"
-                className={classes.button}
-              >
-                Logoff
-              </Button>
             </GridItem>
           </GridContainer>
         </div>

@@ -89,10 +89,14 @@ function DropZone(props) {
         <input {...getInputProps()} />
         <p>Drag and drop some files here, or click to select files</p>
       </div>
-      <aside>
-        <h4>Accepted files</h4>
-        <ul>{acceptedFilesItems}</ul>
-      </aside>
+      {acceptedFilesItems.length ? (
+        <aside>
+          <h4>Accepted files</h4>
+          <ul>{acceptedFilesItems}</ul>
+        </aside>
+      ) : (
+        <div />
+      )}
     </section>
   );
 }

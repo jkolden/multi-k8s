@@ -95,28 +95,23 @@ export default function HeaderLinks(props) {
           noLiPadding
           navDropdown
           hoverColor={dropdownHoverColor}
-          buttonText="Components"
+          buttonText="API Pages"
           buttonProps={{
             className: classes.navLink,
             color: "transparent"
           }}
           buttonIcon={Apps}
           dropdownList={[
-            <Link to="/" className={classes.dropdownLink}>
-              <LineStyle className={classes.dropdownIcons} /> Presentation Page
+            <Link to="/dashboard" className={classes.dropdownLink}>
+              <LineStyle className={classes.dropdownIcons} /> OTBI API Page
             </Link>,
-            <Link to="/components" className={classes.dropdownLink}>
+            <Link to="/data-loader" className={classes.dropdownLink}>
               <Layers className={classes.dropdownIcons} />
-              All components
+              HCM Data Loader
             </Link>,
-            <a
-              href="https://demos.creative-tim.com/material-kit-pro-react/#/documentation/tutorial?ref=mkpr-navbar"
-              target="_blank"
-              className={classes.dropdownLink}
-            >
-              <Icon className={classes.dropdownIcons}>content_paste</Icon>
-              Documentation
-            </a>
+            <Link to="/dashboard" className={classes.dropdownLink}>
+              <LineStyle className={classes.dropdownIcons} /> Atom Feed
+            </Link>
           ]}
         />
       </ListItem>

@@ -103,7 +103,7 @@ export default function HCMDataLoaderPage(props) {
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <GridContainer>
-            <GridItem md={6} sm={6}>
+            <GridItem md={12} sm={12}>
               <h3>File Upload</h3>
               <DropZone handleFile={handleFile} />
             </GridItem>
@@ -118,6 +118,8 @@ export default function HCMDataLoaderPage(props) {
                 variant="outlined"
                 fullWidth
               />
+            </GridItem>
+            <GridItem md={6} sm={6}>
               <TextField
                 id="ess Id"
                 label="Ess Id"
@@ -135,6 +137,55 @@ export default function HCMDataLoaderPage(props) {
               <Button onClick={handleImportAndLoad}>
                 Run Import and Load Data
               </Button>
+            </GridItem>
+            <GridItem md={12} sm={12}>
+              <Accordion
+                active={0}
+                activeColor="dark"
+                collapses={[
+                  {
+                    title: "API Description",
+                    content: (
+                      <p>
+                        Provides external operations for ERP integration
+                        scenarios to execute end-to-end inbound and outbound
+                        data flows. It also tracks the status of inbound and
+                        outbound data processes.
+                      </p>
+                    )
+                  },
+                  {
+                    title: "Payloads",
+                    content: (
+                      <p>
+                        An infusion of West Coast cool and New York attitude,
+                        Rebecca Minkoff is synonymous with It girl style.
+                        Minkoff burst on the fashion scene with her best-selling{" "}
+                        {"'"}
+                        Morning After Bag{"'"} and later expanded her offering
+                        with the Rebecca Minkoff Collection - a range of luxe
+                        city staples with a {'"'}
+                        downtown romantic{'"'} theme.
+                      </p>
+                    )
+                  },
+                  {
+                    title: "Details and Documentation",
+                    content: (
+                      <ul>
+                        <li>Storm and midnight-blue stretch cotton-blend</li>
+                        <li>
+                          Notch lapels, functioning buttoned cuffs, two front
+                          flap pockets, single vent, internal pocket
+                        </li>
+                        <li>Two button fastening</li>
+                        <li>84% cotton, 14% nylon, 2% elastane</li>
+                        <li>Dry clean</li>
+                      </ul>
+                    )
+                  }
+                ]}
+              />
             </GridItem>
           </GridContainer>
         </div>
