@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import * as rssParser from "react-native-rss-parser";
+import { data } from "./atomData.js";
 
 // nodejs library that concatenates classes
 import classNames from "classnames";
@@ -12,8 +13,6 @@ import TextField from "@material-ui/core/TextField";
 import Parallax from "components/Parallax/Parallax.js";
 
 // core components
-import FormControl from "@material-ui/core/FormControl";
-import DropZone from "components/DropZone/DropZone.js";
 
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
@@ -27,8 +26,7 @@ const useStyles = makeStyles(aboutUsStyle);
 export default function AtomFeedPage(props) {
   const classes = useStyles();
   const { loginDetails } = props;
-  const [baseFeed, setBaseFeed] = useState({});
-  const [feed, setFeed] = useState([]);
+  const [baseFeed, setBaseFeed] = useState({ items: [] });
 
   function getData() {
     fetch("/api/atom", {
@@ -42,27 +40,10 @@ export default function AtomFeedPage(props) {
       body: JSON.stringify({ loginDetails: loginDetails })
     })
       .then(resp => resp.json())
-      .then(data => console.log(data));
+      .then(data => setBaseFeed(data));
   }
 
-  function dataTransform() {
-    axios
-      .post(
-        "http://multidocker-env.rjfhnjaucw.us-west-2.elasticbeanstalk.com/api/atom",
-        {
-          //method: "POST",
-          // mode: "no-cors", // no-cors, *cors, same-origin
-          // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-          // credentials: "same-origin", // include, *same-origin, omit
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ loginDetails: loginDetails })
-        }
-      )
-      .then(resp => resp.json())
-      .then(data => console.log("hi"));
-  }
+  let myDate = new Date(data.lastUpdated);
 
   return (
     <React.Fragment>
@@ -89,12 +70,48 @@ export default function AtomFeedPage(props) {
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <GridContainer>
-            <h1>{baseFeed.title}</h1>
+            <h3>{data.title}</h3>
+            <h3>
+              {", last updated " +
+                myDate.toLocaleDateString() +
+                " " +
+                myDate.toLocaleTimeString()}
+            </h3>
+
             <GridItem md={12} sm={12}>
               <ul>
-                {feed.map(item => (
-                  <li>{item.Context[0].WorkEmail}</li>
-                ))}
+                {baseFeed.items
+                  .map(function(item) {
+                    return {
+                      id: item.id,
+                      title: item.title,
+                      content: JSON.parse(item.content)
+                    };
+                  })
+                  .map(obj => (
+                    <li key={obj.id}>
+                      <strong>{obj.title}</strong>
+                      <ul>
+                        <li>
+                          {obj.content["Changed Attributes"].map(changes => (
+                            <li>
+                              {`${Object.keys(changes)}`}
+                              <ul>
+                                <li>
+                                  {Object.values(changes)[0].old
+                                    ? `Old: ${Object.values(changes)[0].old}`
+                                    : ""}
+                                  {Object.values(changes)[0].new
+                                    ? ` / New: ${Object.values(changes)[0].new}`
+                                    : ""}
+                                </li>
+                              </ul>
+                            </li>
+                          ))}
+                        </li>
+                      </ul>
+                    </li>
+                  ))}
               </ul>
             </GridItem>
             <GridItem md={12} sm={12}>
@@ -109,10 +126,17 @@ export default function AtomFeedPage(props) {
                     title: "API Description",
                     content: (
                       <p>
-                        Provides external operations for ERP integration
-                        scenarios to execute end-to-end inbound and outbound
-                        data flows. It also tracks the status of inbound and
-                        outbound data processes.
+                        Atom feeds enable you to track changes made to
+                        feed-enabled resources in Oracle Global Human Resources
+                        Cloud. For any updates of interest to downstream
+                        applications such as new hires, terminations, employee
+                        transfers, and promotions, Oracle Global Human Resources
+                        Cloud publishes Atom feeds. For this use case, the
+                        Oracle HCM Cloud Adapter is configured with the Atom
+                        feed Employee Update. This feed consists of three
+                        updates (PrimaryPhoneNumber, CitizenshipStatus, and
+                        CitizenshipId). An FTP Adapter is also configured to
+                        write any feed updates to an FTP server.
                       </p>
                     )
                   },

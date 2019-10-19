@@ -21,17 +21,8 @@ export default function DashboardFooter() {
       <Footer
         content={
           <div>
-            <div className={classes.left}>
+            <div className={classes.right}>
               <List className={classes.list}>
-                <ListItem className={classes.inlineBlock}>
-                  <a
-                    href="https://www.creative-tim.com/?ref=mkpr-about-us"
-                    className={classes.block}
-                    target="_blank"
-                  >
-                    Creative Tim
-                  </a>
-                </ListItem>
                 <ListItem className={classes.inlineBlock}>
                   <a
                     href="https://www.creative-tim.com/presentation?ref=mkpr-about-us"
@@ -60,17 +51,6 @@ export default function DashboardFooter() {
                   </a>
                 </ListItem>
               </List>
-            </div>
-            <div className={classes.right}>
-              &copy; {1900 + new Date().getYear()} , made with{" "}
-              <Favorite className={classes.icon} /> by{" "}
-              <a
-                href="https://www.creative-tim.com?ref=mkpr-about-us"
-                target="_blank"
-              >
-                Creative Tim
-              </a>{" "}
-              for a better web.
             </div>
           </div>
         }
