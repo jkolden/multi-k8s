@@ -1,5 +1,6 @@
 /*eslint-disable*/
 import React, { useState } from "react";
+import axios from "axios";
 import * as rssParser from "react-native-rss-parser";
 
 // nodejs library that concatenates classes
@@ -29,18 +30,38 @@ export default function AtomFeedPage(props) {
   const [baseFeed, setBaseFeed] = useState({});
   const [feed, setFeed] = useState([]);
 
-  function dataTransform() {
+  function getData() {
     fetch("/api/atom", {
-      method: "POST",
-      body: JSON.stringify({
-        loginDetails: loginDetails
-      })
-    }).then(response => {
-      setBaseFeed(response);
-      let arr = response.items;
-      let newarr = arr.map(item => JSON.parse(item.content));
-      setFeed(newarr);
-    });
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ loginDetails: loginDetails })
+    })
+      .then(resp => resp.json())
+      .then(data => console.log(data));
+  }
+
+  function dataTransform() {
+    axios
+      .post(
+        "http://multidocker-env.rjfhnjaucw.us-west-2.elasticbeanstalk.com/api/atom",
+        {
+          //method: "POST",
+          // mode: "no-cors", // no-cors, *cors, same-origin
+          // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+          // credentials: "same-origin", // include, *same-origin, omit
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ loginDetails: loginDetails })
+        }
+      )
+      .then(resp => resp.json())
+      .then(data => console.log("hi"));
   }
 
   return (
@@ -77,7 +98,7 @@ export default function AtomFeedPage(props) {
               </ul>
             </GridItem>
             <GridItem md={12} sm={12}>
-              <Button onClick={() => dataTransform()}>Get Feed</Button>
+              <Button onClick={() => getData()}>Get Feed</Button>
             </GridItem>
             <GridItem md={12} sm={12}>
               <Accordion
