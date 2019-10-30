@@ -83,7 +83,20 @@ export default function SectionProducts(props) {
 
     data.append("password", loginDetails.password);
     data.append("image", file[0]);
-    data.append("url", `${selectedRecord.links[0].href}/child/photo`);
+
+    data.append(
+      "url",
+      selectedRecord.photo.length > 0
+        ? selectedRecord.photo[0].links[0].href
+        : `${selectedRecord.links[0].href}/child/photo`
+    );
+
+    data.append("method", selectedRecord.photo.length > 0 ? "PATCH" : `POST`);
+
+    // Display the key/value pairs
+    for (var pair of data.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
 
     fetch("/api/hcm-image-upload", {
       method: "POST",
@@ -140,6 +153,7 @@ export default function SectionProducts(props) {
                       title: "Edit Employee Record",
                       content: (
                         <CardBody className={classes.cardBodyRefine}>
+                          <h4>{selectedRecord.DisplayName}</h4>
                           <TextField
                             value={changedRecord.WorkPhoneAreaCode}
                             fullWidth

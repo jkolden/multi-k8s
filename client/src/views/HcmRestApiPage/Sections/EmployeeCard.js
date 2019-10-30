@@ -41,7 +41,8 @@ export default function EmployeeCard(props) {
   }, [props]);
 
   function handleSelection(person) {
-    setSelectedRecord(person);
+    setSelectedRecord({ ...person });
+    console.log("person selected", person);
   }
 
   const classes = useStyles();

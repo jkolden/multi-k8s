@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import ProductPage from "views/ProductPage/ProductPage";
 import HCMDataLoaderPage from "views/HCMDataLoaderPage/HCMDataLoaderPage";
 import AtomFeedPage from "views/AtomFeedPage/AtomFeedPage";
-import EcommercePage from "views/EcommercePage/EcommercePage";
+import HcmRestApiPage from "views/HcmRestApiPage/HcmRestApiPage";
 
 // core components
 import Header from "components/Header/Header.js";
@@ -81,7 +81,7 @@ export default function Dashboard() {
       <Route
         path="/hcm"
         render={() => (
-          <EcommercePage
+          <HcmRestApiPage
             loginDetails={loginDetails}
             setLoginDetails={setLoginDetails}
           />

@@ -42,7 +42,7 @@ function updateEmployee(loginDetails, url, payload) {
 
 function loadImage(request) {
   let fs = require("fs");
-  let { password, url } = request.body;
+  let { password, url, method } = request.body;
   let user = "betty.anderson";
   console.log(request.file);
 
@@ -58,7 +58,7 @@ function loadImage(request) {
   const fetch = require("node-fetch");
 
   return fetch(url, {
-    method: "POST",
+    method: method,
     headers: {
       "Content-Type": "application/json",
       Authorization:
