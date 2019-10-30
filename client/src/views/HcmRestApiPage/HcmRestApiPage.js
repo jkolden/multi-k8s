@@ -10,7 +10,7 @@ import Parallax from "components/Parallax/Parallax.js";
 import data from "assets/data/empData";
 
 // sections for this page
-import SectionProducts from "views/EcommercePage/Sections/SectionProducts.js";
+import SectionProducts from "views/HcmRestApiPage/Sections/SectionProducts.js";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
