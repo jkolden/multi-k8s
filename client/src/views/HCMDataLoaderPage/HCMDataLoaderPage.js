@@ -8,17 +8,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Parallax from "components/Parallax/Parallax.js";
 
+import DataLoaderFixedPlugin from "components/FixedPlugin/DataLoaderFixedPlugin";
+
 // core components
-import FormControl from "@material-ui/core/FormControl";
 import DropZone from "components/DropZone/DropZone.js";
 
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import Button from "components/CustomButtons/Button.js";
 import Accordion from "components/Accordion/Accordion.js";
-import VectorMapView from "components/Map/VectorMapView.js";
-import EmployeesTable from "components/Tables/EmployeesTable.js";
-import productStyle from "assets/jss/material-kit-pro-react/views/productStyle.js";
 import aboutUsStyle from "assets/jss/material-kit-pro-react/views/aboutUsStyle.js";
 
 const useStyles = makeStyles(aboutUsStyle);
@@ -27,10 +24,19 @@ export default function HCMDataLoaderPage(props) {
   const [file, setFile] = useState();
   const [essId, setEssId] = useState();
   const [contentId, setContentId] = useState();
-
-  const classes = useStyles();
   const { loginDetails } = props;
   const { instance, password, user } = loginDetails;
+  const [fixedClasses, setFixedClasses] = React.useState("dropdown");
+
+  const classes = useStyles();
+
+  const handleFixedClick = () => {
+    if (fixedClasses === "dropdown") {
+      setFixedClasses("dropdown show");
+    } else {
+      setFixedClasses("dropdown");
+    }
+  };
 
   const handleChange = () => event => {
     setContentId(event.target.value);
@@ -95,7 +101,6 @@ export default function HCMDataLoaderPage(props) {
               )}
             >
               <h1 className={classes.title}>Easily Upload Data</h1>
-              <h4>This is the HCM Data Loader API</h4>
             </GridItem>
           </GridContainer>
         </div>
@@ -131,20 +136,12 @@ export default function HCMDataLoaderPage(props) {
               />
             </GridItem>
             <GridItem md={12} sm={12}>
-              <Button color="primary" onClick={handleUpload}>
-                Load to HCM Cloud
-              </Button>
-              <Button onClick={handleImportAndLoad}>
-                Run Import and Load Data
-              </Button>
-            </GridItem>
-            <GridItem md={12} sm={12}>
               <Accordion
                 active={0}
-                activeColor="dark"
+                activeColor="primary"
                 collapses={[
                   {
-                    title: "API Description",
+                    title: "HCM Data Loader API",
                     content: (
                       <p>
                         Provides external operations for ERP integration
@@ -190,6 +187,12 @@ export default function HCMDataLoaderPage(props) {
           </GridContainer>
         </div>
       </div>
+      <DataLoaderFixedPlugin
+        fixedClasses={fixedClasses}
+        handleFixedClick={handleFixedClick}
+        handleUpload={handleUpload}
+        handleImportAndLoad={handleImportAndLoad}
+      />
     </React.Fragment>
   );
 }

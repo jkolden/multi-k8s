@@ -79,7 +79,7 @@ export default function Cards() {
         <GridItem sm={6} md={3}>
           <Card product>
             <CardHeader image>
-              <a href="#pablo">
+              <a href="/dashboard">
                 <img src={cardProject3} alt="cardProject3" />
               </a>
             </CardHeader>
@@ -110,7 +110,7 @@ export default function Cards() {
         <GridItem sm={6} md={3}>
           <Card product>
             <CardHeader image>
-              <a href="#pablo">
+              <a href="/atom">
                 <img src={cardProject4} alt="cardProject4" />
               </a>
             </CardHeader>
@@ -141,8 +141,8 @@ export default function Cards() {
         <GridItem sm={6} md={3}>
           <Card product>
             <CardHeader image>
-              <a href="#pablo">
-                <img src={cardProject2} alt="cardProject2" />
+              <a href="/data-loader">
+               <img src={cardProject2} alt="cardProject2" />
               </a>
             </CardHeader>
             <CardBody>

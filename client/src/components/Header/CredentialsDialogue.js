@@ -9,6 +9,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles } from "@material-ui/core/styles";
 import CloudQueueIcon from "@material-ui/icons/CloudQueue";
+import CloudDoneIcon from "@material-ui/icons/CloudDone";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,6 +20,10 @@ const useStyles = makeStyles(theme => ({
   icon: {
     margin: theme.spacing(2),
     color: "white"
+  },
+  greenicon: {
+    margin: theme.spacing(2),
+    color: "limegreen"
   },
   iconHover: {
     margin: theme.spacing(2),
@@ -31,6 +36,10 @@ const useStyles = makeStyles(theme => ({
 const CredentialsDialogue = props => {
   const [open, setOpen] = useState(false);
   const { loginDetails, setLoginDetails } = props;
+  const credentialsEntered =
+    props.loginDetails.instance.length &&
+    props.loginDetails.password.length &&
+    props.loginDetails.user.length;
 
   const classes = useStyles();
 
@@ -45,7 +54,11 @@ const CredentialsDialogue = props => {
     <Fragment>
       <div className={classes.root}>
         <CoreButton onClick={() => setOpen(!open)}>
-          <CloudQueueIcon className={classes.icon} />
+          {!credentialsEntered ? (
+            <CloudQueueIcon className={classes.icon} />
+          ) : (
+            <CloudDoneIcon className={classes.greenicon} />
+          )}{" "}
         </CoreButton>
       </div>
       <Dialog open={open} aria-labelledby="form-dialog-title">

@@ -1,9 +1,13 @@
-const atom = require("./atom.js");
+const hcm = require("./hcm.js");
 
-let feed = atom
-  .getFeed({
-    instance: "adc4-zhox",
-    password: "NYY47963",
-    user: "betty.anderson"
+let feed = hcm
+  .getEmployees({
+    loginDetails: {
+      instance: "adc4-zhox",
+      password: "aPb35488",
+      user: "betty.anderson"
+    },
+    lastName: "Williamson"
   })
-  .then(feed => console.log(feed));
+  .then(response => response.json())
+  .then(data => console.log(data));

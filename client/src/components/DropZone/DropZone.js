@@ -22,11 +22,11 @@ const activeStyle = {
 };
 
 const acceptStyle = {
-  borderColor: "#00e676"
+  borderColor: "#2196f3"
 };
 
 const rejectStyle = {
-  borderColor: "#ff1744"
+  borderColor: "#2196f3"
 };
 
 function DropZone(props) {
@@ -42,6 +42,7 @@ function DropZone(props) {
   } = useDropzone({
     accept: [
       "image/*",
+      "image/jpeg",
       "pdf",
       "application/octet-stream",
       "zz-application/zz-winassoc-dat",
@@ -58,6 +59,7 @@ function DropZone(props) {
         )
       );
       props.handleFile(acceptedFiles);
+      console.log(acceptedFiles);
     }
   });
 
@@ -87,7 +89,11 @@ function DropZone(props) {
     <section className="container">
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
-        <p>Drag and drop some files here, or click to select files</p>
+        <p>
+          {props.message
+            ? props.message
+            : `Drag and drop some files here, or click to select files`}
+        </p>
       </div>
       {acceptedFilesItems.length ? (
         <aside>

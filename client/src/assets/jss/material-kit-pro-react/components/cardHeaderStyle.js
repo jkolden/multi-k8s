@@ -29,7 +29,7 @@ const cardHeaderStyle = {
   cardHeaderImage: {
     position: "relative",
     padding: "0",
-    zIndex: "1",
+    zIndex: "2",
     marginLeft: "15px",
     marginRight: "15px",
     marginTop: "-30px",

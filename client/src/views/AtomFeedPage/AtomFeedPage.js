@@ -20,6 +20,7 @@ import Button from "components/CustomButtons/Button.js";
 import Accordion from "components/Accordion/Accordion.js";
 import productStyle from "assets/jss/material-kit-pro-react/views/productStyle.js";
 import aboutUsStyle from "assets/jss/material-kit-pro-react/views/aboutUsStyle.js";
+import AtomFeedFixedPlugin from "components/FixedPlugin/AtomFeedFixedPlugin";
 
 const useStyles = makeStyles(aboutUsStyle);
 
@@ -27,6 +28,15 @@ export default function AtomFeedPage(props) {
   const classes = useStyles();
   const { loginDetails } = props;
   const [baseFeed, setBaseFeed] = useState({ items: [] });
+  const [fixedClasses, setFixedClasses] = React.useState("dropdown");
+
+  const handleFixedClick = () => {
+    if (fixedClasses === "dropdown") {
+      setFixedClasses("dropdown show");
+    } else {
+      setFixedClasses("dropdown");
+    }
+  };
 
   function getData() {
     fetch("/api/atom", {
@@ -62,7 +72,6 @@ export default function AtomFeedPage(props) {
               <h1 className={classes.title}>
                 Stay Current with Real-time Atom Feeds
               </h1>
-              <h4>This is the Atom Feed API</h4>
             </GridItem>
           </GridContainer>
         </div>
@@ -114,9 +123,7 @@ export default function AtomFeedPage(props) {
                   ))}
               </ul>
             </GridItem>
-            <GridItem md={12} sm={12}>
-              <Button onClick={() => getData()}>Get Feed</Button>
-            </GridItem>
+
             <GridItem md={12} sm={12}>
               <Accordion
                 active={0}
@@ -176,6 +183,11 @@ export default function AtomFeedPage(props) {
           </GridContainer>
         </div>
       </div>
+      <AtomFeedFixedPlugin
+        getData={getData}
+        fixedClasses={fixedClasses}
+        handleFixedClick={handleFixedClick}
+      />
     </React.Fragment>
   );
 }

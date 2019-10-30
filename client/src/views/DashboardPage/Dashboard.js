@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import ProductPage from "views/ProductPage/ProductPage";
 import HCMDataLoaderPage from "views/HCMDataLoaderPage/HCMDataLoaderPage";
 import AtomFeedPage from "views/AtomFeedPage/AtomFeedPage";
+import EcommercePage from "views/EcommercePage/EcommercePage";
 
 // core components
 import Header from "components/Header/Header.js";
@@ -26,7 +27,7 @@ export default function Dashboard() {
   const [loginDetails, setLoginDetails] = useState({
     instance: "",
     password: "",
-    user: ""
+    user: "betty.anderson"
   });
 
   React.useEffect(() => {
@@ -72,6 +73,15 @@ export default function Dashboard() {
         path="/atom"
         render={() => (
           <AtomFeedPage
+            loginDetails={loginDetails}
+            setLoginDetails={setLoginDetails}
+          />
+        )}
+      />
+      <Route
+        path="/hcm"
+        render={() => (
+          <EcommercePage
             loginDetails={loginDetails}
             setLoginDetails={setLoginDetails}
           />

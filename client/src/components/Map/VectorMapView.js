@@ -18,38 +18,36 @@ class VectorMapView extends React.Component {
     const { mapData } = this.props;
     return (
       <div className="map map-big" id="worldMap">
-        <Paper>
-          <VectorMap
-            map={"world_mill"}
-            backgroundColor="transparent"
-            zoomOnScroll={false}
-            containerStyle={{
-              width: "100%",
-              height: "420px"
-            }}
-            onRegionTipShow={function(e, el, code) {
-              el.html(el.html() + " (Employees: " + mapData[code] + ")");
-            }}
-            regionStyle={{
-              initial: {
-                fill: "#e4e4e4",
-                "fill-opacity": 0.9,
-                stroke: "none",
-                "stroke-width": 0,
-                "stroke-opacity": 0
+        <VectorMap
+          map={"world_mill"}
+          backgroundColor="transparent"
+          zoomOnScroll={false}
+          containerStyle={{
+            width: "100%",
+            height: "420px"
+          }}
+          onRegionTipShow={function(e, el, code) {
+            el.html(el.html() + " (Employees: " + mapData[code] + ")");
+          }}
+          regionStyle={{
+            initial: {
+              fill: "#e4e4e4",
+              "fill-opacity": 0.9,
+              stroke: "none",
+              "stroke-width": 0,
+              "stroke-opacity": 0
+            }
+          }}
+          series={{
+            regions: [
+              {
+                values: mapData,
+                scale: ["#59b2c4", "#17515c"],
+                normalizeFunction: "polynomial"
               }
-            }}
-            series={{
-              regions: [
-                {
-                  values: mapData,
-                  scale: ["#59b2c4", "#17515c"],
-                  normalizeFunction: "polynomial"
-                }
-              ]
-            }}
-          />
-        </Paper>
+            ]
+          }}
+        />
       </div>
     );
   }

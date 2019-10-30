@@ -7,6 +7,7 @@ const employees = require("../controllers/employees.js");
 const otbi = require("../controllers/otbi.js");
 const ucm = require("../controllers/ucm.js");
 const atom = require("../controllers/atom.js");
+const hcm = require("../controllers/hcm.js");
 
 router
   .route("/employees/:id?")
@@ -21,5 +22,8 @@ router.route("/otbi-report").post(otbi.runReport);
 router.route("/file-upload").post(upload.single("datfile"), ucm.loadFile);
 router.route("/importAndLoad").post(ucm.importAndLoad);
 router.route("/atom").post(atom.feed);
+router.route("/hcm").post(hcm.getEmployees);
+router.route("/hcm-update").post(hcm.updateEmployee);
+router.route("/hcm-image-upload").post(upload.single("image"), hcm.loadImage);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 /*eslint-disable*/
 import React, { useState } from "react";
+
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react component used to create nice image meadia player
@@ -8,7 +9,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Parallax from "components/Parallax/Parallax.js";
 
+import OtbiPayload from "components/PayloadInfo/OtbiPayload";
+
 // core components
+
+import Card from "components/Card/Card.js";
+import CardHeader from "components/Card/CardHeader.js";
+import CardBody from "components/Card/CardBody.js";
+import FixedPlugin from "components/FixedPlugin/FixedPlugin";
 
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
@@ -16,18 +24,27 @@ import Button from "components/CustomButtons/Button.js";
 import Accordion from "components/Accordion/Accordion.js";
 import VectorMapView from "components/Map/VectorMapView.js";
 import EmployeesTable from "components/Tables/EmployeesTable.js";
-import productStyle from "assets/jss/material-kit-pro-react/views/productStyle.js";
 import aboutUsStyle from "assets/jss/material-kit-pro-react/views/aboutUsStyle.js";
 
 const useStyles = makeStyles(aboutUsStyle);
 
 export default function ProductPage(props) {
   const [otbiData, setOtbiData] = useState([]);
-  const [mapData, setMapData] = useState();
-  const [sessionId, setSessionId] = useState();
+  const [mapData, setMapData] = useState({});
+  const [sessionId, setSessionId] = useState("");
   const [tableData, setTableData] = useState([]);
   const { loginDetails, setLoginDetails } = props;
+
+  const [fixedClasses, setFixedClasses] = React.useState("dropdown");
   const classes = useStyles();
+
+  const handleFixedClick = () => {
+    if (fixedClasses === "dropdown") {
+      setFixedClasses("dropdown show");
+    } else {
+      setFixedClasses("dropdown");
+    }
+  };
 
   function handleLogoff() {
     loginDetails.sessionId = sessionId;
@@ -42,7 +59,7 @@ export default function ProductPage(props) {
       body: JSON.stringify({ loginDetails: loginDetails })
     })
       .then(resp => resp.json())
-      .then(data => setSessionId(data))
+      .then(data => setSessionId(""))
       .then(setOtbiData([]))
       .then(setMapData({}))
       .then(setTableData([]));
@@ -105,7 +122,7 @@ export default function ProductPage(props) {
         return Object.values(b) - Object.values(a);
       })
       .filter(obj => Object.keys(obj) != typeof undefined)
-      .slice(0, 7);
+      .slice(0, 6);
 
     setTableData(result);
   }
@@ -131,106 +148,56 @@ export default function ProductPage(props) {
               <h1 className={classes.title}>
                 Seamlessly Access Data from Transactional Business Intelligence
               </h1>
-              <h4>This is the Oracle Anayltics API</h4>
             </GridItem>
           </GridContainer>
         </div>
       </Parallax>
-      <div className={classNames(classes.main, classes.mainRaised)}>
-        <div className={classes.container}>
-          <GridContainer>
-            <GridItem md={6} sm={6}>
-              <h4>Top Countries</h4>
 
-              <EmployeesTable tableData={tableData} />
-            </GridItem>
-            <GridItem md={6} sm={6}>
-              <h4>Global employee distribution</h4>
-              <VectorMapView mapData={mapData} />
-            </GridItem>
-            <GridItem md={6} sm={6}>
-              <TextField
-                id="session-id"
-                label="OTBI Session Id"
-                placeholder="OTBI Session Id"
-                value={sessionId || ""}
-                margin="normal"
-                variant="outlined"
-                fullWidth
-              />
-              <Button onClick={doLogon} fullWidth={false} color="primary">
-                Get OTBI Session Id
-              </Button>
-              <Button
-                onClick={getOtbi}
-                variant="contained"
-                className={classes.button}
-              >
-                Run OTBI Report API
-              </Button>
-              <Button
-                onClick={handleLogoff}
-                variant="contained"
-                className={classes.button}
-              >
-                Logoff
-              </Button>
-            </GridItem>
-            <GridItem md={12} sm={12}>
-              <Accordion
-                active={0}
-                activeColor="dark"
-                collapses={[
-                  {
-                    title: "API Description",
-                    content: (
-                      <p>
-                        The Oracle Business Intelligence Session-Based Web
-                        Services are an application programming interface (API)
-                        that implements SOAP. These web services are designed
-                        for programmatic use, where you use one web service for
-                        invoking many different business intelligence objects.
-                        These web services also provide functionality on a wide
-                        range of Presentation Services operations.
-                      </p>
-                    )
-                  },
-                  {
-                    title: "Payloads",
-                    content: (
-                      <p>
-                        An infusion of West Coast cool and New York attitude,
-                        Rebecca Minkoff is synonymous with It girl style.
-                        Minkoff burst on the fashion scene with her best-selling{" "}
-                        {"'"}
-                        Morning After Bag{"'"} and later expanded her offering
-                        with the Rebecca Minkoff Collection - a range of luxe
-                        city staples with a {'"'}
-                        downtown romantic{'"'} theme.
-                      </p>
-                    )
-                  },
-                  {
-                    title: "Details and Documentation",
-                    content: (
-                      <ul>
-                        <li>Storm and midnight-blue stretch cotton-blend</li>
-                        <li>
-                          Notch lapels, functioning buttoned cuffs, two front
-                          flap pockets, single vent, internal pocket
-                        </li>
-                        <li>Two button fastening</li>
-                        <li>84% cotton, 14% nylon, 2% elastane</li>
-                        <li>Dry clean</li>
-                      </ul>
-                    )
-                  }
-                ]}
-              />
-            </GridItem>
-          </GridContainer>
-        </div>
-      </div>
+      <GridContainer>
+        <GridItem xs={12}>
+          <Card className={classes.card}>
+            <CardHeader icon>
+              <h4 className={classes.cardIconTitle}>
+                Global Employees by Top Locations
+              </h4>
+            </CardHeader>
+            <CardBody>
+              <GridContainer justify="space-between">
+                <GridItem xs={12} sm={12} md={5}>
+                  <EmployeesTable tableData={tableData} />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={6}>
+                  <VectorMapView mapData={mapData} />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={6}>
+                  <TextField
+                    id="session-id"
+                    label="OTBI Session Id"
+                    placeholder="OTBI Session Id"
+                    value={sessionId || ""}
+                    margin="normal"
+                    variant="outlined"
+                    fullWidth
+                  />
+                </GridItem>
+                <GridItem md={12} sm={12}>
+                  <OtbiPayload />
+                </GridItem>
+              </GridContainer>
+            </CardBody>
+          </Card>
+        </GridItem>
+      </GridContainer>
+
+      <FixedPlugin
+        loginDetails={loginDetails}
+        fixedClasses={fixedClasses}
+        handleFixedClick={handleFixedClick}
+        doLogon={doLogon}
+        getOtbi={getOtbi}
+        handleLogoff={handleLogoff}
+        sessionId={sessionId}
+      />
     </React.Fragment>
   );
 }

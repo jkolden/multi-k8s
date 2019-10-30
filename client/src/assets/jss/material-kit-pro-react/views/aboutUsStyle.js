@@ -61,6 +61,10 @@ const aboutUsStyle = {
     height: "18px",
     top: "3px",
     position: "relative"
+  },
+  card: {
+    margin: "20px",
+    padding: "20px"
   }
 };
 
