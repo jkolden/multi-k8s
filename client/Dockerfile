@@ -1,4 +1,4 @@
-FROM node:10-alpine as builder
+FROM node:alpine as builder
 
 WORKDIR /app
 
@@ -7,6 +7,8 @@ RUN npm install
 RUN npm install @material-ui/core
 RUN npm install @material-ui/icons
 RUN npm install recharts
+RUN npm install node-sass@latest
+
 COPY . .
 
 RUN npm run build

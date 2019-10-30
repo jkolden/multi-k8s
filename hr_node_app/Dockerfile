@@ -1,4 +1,4 @@
-FROM oraclelinux:8-slim
+FROM oraclelinux:7-slim
 
 # Create app directory
 WORKDIR /app
