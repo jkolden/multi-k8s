@@ -87,9 +87,10 @@ export default function EmployeeCard(props) {
             </Tooltip>
           </div>
           <div>
-            <h4 className={classes.cardTitle}>{person.DisplayName}</h4>
+            <h4 className={classes.cardTitleAlt}>{person.DisplayName}</h4>
             {person.Country ? (
               <img
+                className={classes.flag}
                 alt="country flag"
                 src={`https://www.countryflags.io/${person.Country}/flat/24.png`}
               />
@@ -98,7 +99,7 @@ export default function EmployeeCard(props) {
             )}
           </div>
 
-          <p className={classes.description}>
+          <p className={classes.clearFloatLeft}>
             {`${person.assignments[0].AssignmentName}, ${
               person.City ? person.City : "No city listed"
             }`}

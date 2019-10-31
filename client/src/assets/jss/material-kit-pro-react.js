@@ -344,6 +344,15 @@ const cardTitle = {
   }
 };
 
+const cardTitleAlt = {
+  "&, & a": {
+    ...title,
+    marginTop: "0px",
+    marginBottom: "0.75rem",
+    minHeight: "auto"
+  }
+};
+
 const cardLink = {
   "& + $cardLink": {
     marginLeft: "1.25rem"
@@ -515,6 +524,7 @@ export {
   defaultBoxShadow,
   title,
   cardTitle,
+  cardTitleAlt,
   description,
   cardLink,
   cardSubtitle,

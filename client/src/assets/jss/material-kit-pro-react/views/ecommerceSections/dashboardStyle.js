@@ -1,6 +1,7 @@
 import {
   successColor,
   cardTitle,
+  cardTitleAlt,
   tooltip,
   grayColor
 } from "assets/jss/material-kit-pro-react.js";
@@ -16,12 +17,28 @@ const dashboardStyle = {
     marginTop: "0px",
     marginBottom: "3px"
   },
+  cardTitleAlt: {
+    ...cardTitleAlt,
+    float: "left",
+    marginTop: "0px",
+    marginBottom: "3px"
+  },
+  clearFloatLeft: {
+    clear: "left"
+  },
   cardIconTitle: {
     ...cardTitle,
     marginTop: "15px",
     marginBottom: "0px"
   },
   cardProductTitle: {
+    ...cardTitle,
+    marginTop: "0px",
+    float: "left",
+    marginBottom: "3px",
+    textAlign: "center"
+  },
+  cardProductTitleAlt: {
     ...cardTitle,
     marginTop: "0px",
     marginBottom: "3px",
@@ -80,6 +97,9 @@ const dashboardStyle = {
       marginBottom: "0px",
       marginTop: "0px"
     }
+  },
+  flag: {
+    float: "right"
   }
 };
 
