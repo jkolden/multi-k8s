@@ -7,7 +7,6 @@ RUN npm install
 RUN npm install @material-ui/core
 RUN npm install @material-ui/icons
 RUN npm install recharts
-RUN npm install node-sass@latest
 
 COPY . .
 
