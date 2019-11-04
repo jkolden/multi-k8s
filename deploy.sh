@@ -2,7 +2,6 @@ docker build -t jkolden/multi-client:latest -t jkolden/multi-client:$SHA -f ./cl
 docker build -t jkolden/multi-server:latest -t jkolden/multi-server:$SHA -f ./server/Dockerfile ./server
 docker push jkolden/multi-client:latest
 docker push jkolden/multi-server:latest
-docker push jkolden/multi-server:latest
 docker push jkolden/multi-client:$SHA
 docker push jkolden/multi-server:$SHA
 kubectl apply -f k8s
