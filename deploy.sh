@@ -1,5 +1,5 @@
 docker build -t jkolden/multi-client:latest -t jkolden/multi-client:$SHA -f ./client/Dockerfile ./client
-docker build -t jkolden/multi-server:latest -t jkolden/multi-server:$SHA -f ./server/Dockerfile ./server
+docker build -t jkolden/multi-server:latest -t jkolden/multi-server:$SHA -f ./hr_node_app/Dockerfile ./hr_node_app
 docker push jkolden/multi-client:latest
 docker push jkolden/multi-server:latest
 docker push jkolden/multi-client:$SHA
