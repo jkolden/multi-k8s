@@ -5,6 +5,6 @@ docker push jkolden/multi-server:latest
 docker push jkolden/multi-server:latest
 docker push jkolden/multi-client:$SHA
 docker push jkolden/multi-server:$SHA
-kubectl appy -f k8s
+kubectl apply -f k8s
 kubectl set image deployments/server-deployment server=jkolden/multi-server:$SHA
 kubectl set image deployments/client-deployment client=jkolden/multi-client:$SHA
