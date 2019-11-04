@@ -20,7 +20,7 @@ before_install:
 script:
   - docker run -e CI=true jkolden/react-test npm run test
 
-delpoy:
+deploy:
   provider: script
   script: bash ./deploy.sh
   on:
