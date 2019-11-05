@@ -39,7 +39,7 @@ export default function Dashboard() {
   return (
     <div>
       <Header
-        brand="Oracle Cloud Integration Portal"
+        brand="Cloud Integration Portal"
         loginDetails={loginDetails}
         setLoginDetails={setLoginDetails}
         links={<HeaderLinks dropdownHoverColor="info" />}

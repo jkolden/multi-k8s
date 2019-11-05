@@ -30,7 +30,7 @@ export default function APIInfoArea() {
         <GridItem md={4} sm={4}>
           <InfoArea
             title="Flexible"
-            description="Whether integrating third party applications, legacy applications or extending the Oracle Cloud, our application programmable interfaces are tailored to meet your needs."
+            description="Whether integrating third party applications, legacy applications or extending the Cloud, our application programmable interfaces are tailored to meet your needs."
             icon={WifiIcon}
             iconColor="success"
             vertical
@@ -39,7 +39,7 @@ export default function APIInfoArea() {
         <GridItem md={4} sm={4}>
           <InfoArea
             title="Popular"
-            description="Learn more about why the Oracle Cloud API's are consisently ranked as the most flexible and secure in the industry."
+            description="Learn more about why Cloud API's are consisently ranked as the most flexible and secure in the industry."
             icon={Favorite}
             iconColor="rose"
             vertical
