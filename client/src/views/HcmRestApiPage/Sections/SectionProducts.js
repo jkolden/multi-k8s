@@ -212,6 +212,7 @@ export default function SectionProducts(props) {
             <GridContainer>
               {hcmData.map(person => (
                 <EmployeeCard
+                  loginDetails={loginDetails}
                   person={person}
                   selectedRecord={selectedRecord}
                   setSelectedRecord={setSelectedRecord}

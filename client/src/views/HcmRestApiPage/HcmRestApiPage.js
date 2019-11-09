@@ -18,7 +18,7 @@ import styles from "assets/jss/material-kit-pro-react/views/ecommerceStyle.js";
 
 const useStyles = makeStyles(styles);
 
-export default function EcommercePage(props) {
+export default function HcmRestApiPage(props) {
   const { loginDetails } = props;
   React.useEffect(() => {
     window.scrollTo(0, 0);
