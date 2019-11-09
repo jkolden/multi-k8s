@@ -5,8 +5,8 @@ metadata:
 spec:
   secretName: acme-crt-secret
   dnsNames:
-    - foo.example.com
-    - bar.example.com
+    - ociportal.com
+    - www.ociportal.com
   acme:
     config:
       - http01:
