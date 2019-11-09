@@ -13,7 +13,7 @@ spec:
       secretName: "acme-crt-secret"
   rules:
     - host: ociportal.com
-    - http:
+      http:
         paths:
           - path: /
             backend:
@@ -24,7 +24,7 @@ spec:
               serviceName: server-cluster-ip-service
               servicePort: 5000
     - host: www.ociportal.com
-    - http:
+      http:
         paths:
           - path: /
             backend:
