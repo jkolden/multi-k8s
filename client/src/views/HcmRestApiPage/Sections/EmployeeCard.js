@@ -22,15 +22,10 @@ export default function EmployeeCard(props) {
   useEffect(() => {
     if (person.photo[0]) {
       fetch(person.photo[0].links[3].href, {
-        mode: "no-cors", // no-cors, *cors, same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
         headers: new Headers({
           Authorization:
             "Basic " +
-            new Buffer(
-              loginDetails.user + ":" + loginDetails.password
-            ).toString("base64")
+            window.btoa(loginDetails.user + ":" + loginDetails.password)
         })
       })
         .then(response => response.blob())
