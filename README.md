@@ -22,3 +22,9 @@ The node express app and the client are configured to run in their own docker co
 All of the yaml files required to run this project in Kubernetes can be found in the k8s folder.
 
 ## How to run this project
+
+This assumes you have kubectl and minikube installed on your local machine.
+
+To run this project locally, simply clone this repo to a local directory on your machine and then cd into that directory. Start the Kubernetes cluster by running the following command:
+
+- kubectl apply k8s-local
